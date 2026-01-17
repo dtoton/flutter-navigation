@@ -8,7 +8,8 @@ class ImageColorRecognizer {
   static Future<Color?> getDominantColor(String imageUrl) async {
     // TODO: move calculation to a separate isolote
     try {
-      final PaletteGenerator generator = await PaletteGenerator.fromImageProvider(NetworkImage(imageUrl));
+      final PaletteGenerator generator =
+          await PaletteGenerator.fromImageProvider(NetworkImage(imageUrl));
       return generator.vibrantColor?.color ?? generator.dominantColor?.color;
     } catch (err) {
       return null;

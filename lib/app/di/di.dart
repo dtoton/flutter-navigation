@@ -15,5 +15,8 @@ void configureDependencies(AppEnvironment environment) {
 }
 
 /// Inject the dependency from get_it.
-T inject<T extends Object>({String? instanceName, dynamic param1, dynamic param2}) =>
-    getIt.get<T>(instanceName: instanceName, param1: param1, param2: param2);
+T inject<T extends Object>({
+  String? instanceName,
+  dynamic param1,
+  dynamic param2,
+}) => getIt.get<T>(instanceName: instanceName, param1: param1, param2: param2);

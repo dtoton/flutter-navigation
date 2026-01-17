@@ -1,6 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:navigation/app/pages/home/home_bloc.dart';
 import 'package:navigation/app/pages/home/home_state.dart';
 import 'package:navigation/features/article/domain/article_use_case.dart';
@@ -38,10 +38,9 @@ void main() {
     blocTest(
       'emits loading and content after search',
       build: () {
-        when(useCase.searchArticles('spacecraft')).thenAnswer((_) async => SearchResult(
-              pages: [headline],
-              items: [article],
-            ));
+        when(() => useCase.searchArticles('spacecraft')).thenAnswer(
+          (_) async => SearchResult(pages: [headline], items: [article]),
+        );
 
         return HomeBloc(useCase);
       },
@@ -49,10 +48,7 @@ void main() {
       expect: () => [
         const HomeState.loading(),
         HomeState.content(
-          searchResult: SearchResult(
-            pages: [headline],
-            items: [article],
-          ),
+          searchResult: SearchResult(pages: [headline], items: [article]),
           headlines: [homeHeadline],
         ),
       ],
@@ -68,18 +64,14 @@ void main() {
     blocTest(
       'emits no results',
       build: () {
-        when(useCase.searchArticles('spacecraft')).thenAnswer((_) async => const SearchResult(
-              pages: [],
-              items: [],
-            ));
+        when(
+          () => useCase.searchArticles('spacecraft'),
+        ).thenAnswer((_) async => const SearchResult(pages: [], items: []));
 
         return HomeBloc(useCase);
       },
       act: (HomeBloc bloc) => bloc.search('spacecraft'),
-      expect: () => [
-        const HomeState.loading(),
-        const HomeState.noResults(),
-      ],
+      expect: () => [const HomeState.loading(), const HomeState.noResults()],
     );
   });
 }

@@ -3,10 +3,11 @@ part 'app_environment.freezed.dart';
 
 /// A configuration for the app which depends on the environment.
 @freezed
-class AppEnvironment with _$AppEnvironment {
+abstract class AppEnvironment with _$AppEnvironment {
   static const AppEnvironment development = AppEnvironment(
     name: 'development',
-    baseUrl: 'https://simpleclub-coding-challenges.web.app/navigating-dynamic-content/',
+    baseUrl:
+        'https://simpleclub-coding-challenges.web.app/navigating-dynamic-content/',
   );
 
   const factory AppEnvironment({

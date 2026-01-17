@@ -68,7 +68,7 @@ class ColorSchemes {
 
 /// Similar to [ColorScheme] but allows to define custom colors.
 @freezed
-class AppColorScheme with _$AppColorScheme {
+abstract class AppColorScheme with _$AppColorScheme {
   const AppColorScheme._();
 
   const factory AppColorScheme({

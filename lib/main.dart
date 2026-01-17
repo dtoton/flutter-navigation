@@ -17,17 +17,20 @@ void main() {
 }
 
 Future<void> runNavigationApp(AppEnvironment environment) async {
-  await runZonedGuarded(() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await _configureLogger(environment);
+  await runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      await _configureLogger(environment);
 
-    await EasyLocalization.ensureInitialized();
-    configureDependencies(environment);
+      await EasyLocalization.ensureInitialized();
+      configureDependencies(environment);
 
-    _runApp();
-  }, (error, stackTrace) {
-    _logger.logError(error, stackTrace);
-  });
+      _runApp();
+    },
+    (error, stackTrace) {
+      _logger.logError(error, stackTrace);
+    },
+  );
 }
 
 Future<void> _configureLogger(AppEnvironment environment) async {
@@ -37,13 +40,12 @@ Future<void> _configureLogger(AppEnvironment environment) async {
 }
 
 void _runApp() {
-  runApp(EasyLocalization(
-    supportedLocales: const [
-      Locale('en'),
-      Locale('de'),
-    ],
-    path: 'assets/translations',
-    fallbackLocale: const Locale('en'),
-    child: const NavigationApp(),
-  ));
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en'), Locale('de')],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en'),
+      child: const NavigationApp(),
+    ),
+  );
 }

@@ -4,7 +4,7 @@ import 'package:navigation/features/article/domain/entity/article.dart';
 part 'home_state.freezed.dart';
 
 @freezed
-class HomeState with _$HomeState {
+abstract class HomeState with _$HomeState {
   const factory HomeState.loading() = _Loading;
   const factory HomeState.empty() = _Empty;
   const factory HomeState.noResults() = _NoResults;
@@ -16,7 +16,7 @@ class HomeState with _$HomeState {
 }
 
 @freezed
-class HomeArticleHeadline with _$HomeArticleHeadline {
+abstract class HomeArticleHeadline with _$HomeArticleHeadline {
   const factory HomeArticleHeadline({
     required String id,
     required String title,

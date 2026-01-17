@@ -13,7 +13,9 @@ abstract class RepositoriesModule {
   static void register(GetIt locator) {
     locator.registerLazySingleton(() => _buildDio(inject()));
     locator.registerLazySingleton(() => ArticleApi(inject()));
-    locator.registerLazySingleton<ArticleRepository>(() => ArticleRepositoryImpl(inject()));
+    locator.registerLazySingleton<ArticleRepository>(
+      () => ArticleRepositoryImpl(inject()),
+    );
   }
 }
 

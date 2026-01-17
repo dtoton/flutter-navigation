@@ -18,13 +18,12 @@ ThemeData _buildTheme(AppColorScheme colors) {
 
   return base.copyWith(
     appBarTheme: _appBarTheme(base, colors),
-    buttonTheme: _buttonTheme(colors),
     elevatedButtonTheme: _elevatedButtonTheme(colors),
     outlinedButtonTheme: _outlinedButtonTheme(colors),
     textButtonTheme: _textButtonTheme(textTheme, colors),
     inputDecorationTheme: _inputDecorationTheme(textTheme, colors),
-    dialogTheme: _dialogTheme(colors),
-    cardTheme: _cardTheme(colors),
+    dialogTheme: _dialogThemeData(colors),
+    cardTheme: _cardThemeData(colors),
     dividerTheme: _dividerTheme(colors),
     iconTheme: _iconTheme(colors),
     textSelectionTheme: _textSelectionTheme(colors),
@@ -34,10 +33,7 @@ ThemeData _buildTheme(AppColorScheme colors) {
     canvasColor: colors.canvas,
     highlightColor: colors.highlight,
     scaffoldBackgroundColor: colors.background,
-    dialogBackgroundColor: colors.surface,
-    cardColor: colors.surface,
-    dividerColor: colors.divider,
-    indicatorColor: colors.primary,
+    tabBarTheme: TabBarThemeData(indicatorColor: colors.primary),
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
 }
@@ -45,19 +41,9 @@ ThemeData _buildTheme(AppColorScheme colors) {
 AppBarTheme _appBarTheme(ThemeData base, AppColorScheme colors) {
   return AppBarTheme(
     centerTitle: false,
-    color: colors.surface,
-    toolbarTextStyle: base.textTheme.bodyLarge,
+    backgroundColor: colors.surface,
+    titleTextStyle: base.textTheme.bodyLarge,
     iconTheme: base.iconTheme.copyWith(color: colors.secondary),
-  );
-}
-
-ButtonThemeData _buttonTheme(AppColorScheme colors) {
-  return ButtonThemeData(
-    buttonColor: colors.secondary,
-    padding: Insets.button,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(Dimens.buttonRoundCorners),
-    ),
   );
 }
 
@@ -73,16 +59,24 @@ OutlinedButtonThemeData _outlinedButtonTheme(AppColorScheme colors) {
   );
 }
 
-TextButtonThemeData _textButtonTheme(TextTheme textTheme, AppColorScheme colors) {
+TextButtonThemeData _textButtonTheme(
+  TextTheme textTheme,
+  AppColorScheme colors,
+) {
   return TextButtonThemeData(
     style: TextButtonStyles.positiveOf(textTheme, colors),
   );
 }
 
-InputDecorationTheme _inputDecorationTheme(TextTheme textTheme, AppColorScheme colors) {
+InputDecorationTheme _inputDecorationTheme(
+  TextTheme textTheme,
+  AppColorScheme colors,
+) {
   final InputBorder border = OutlineInputBorder(
     borderSide: BorderSide(color: colors.disabled, width: Dimens.buttonBorder),
-    borderRadius: const BorderRadius.all(Radius.circular(Dimens.textFieldCorners)),
+    borderRadius: const BorderRadius.all(
+      Radius.circular(Dimens.textFieldCorners),
+    ),
   );
 
   return InputDecorationTheme(
@@ -91,9 +85,7 @@ InputDecorationTheme _inputDecorationTheme(TextTheme textTheme, AppColorScheme c
     filled: true,
     isDense: true,
     hintStyle: textTheme.bodyLarge!.copyWith(
-      color: colors.primaryContainer.withAlpha(
-        Color.getAlphaFromOpacity(0.8),
-      ),
+      color: colors.primaryContainer.withAlpha(Color.getAlphaFromOpacity(0.8)),
     ),
     errorStyle: textTheme.bodySmall!.copyWith(color: colors.error),
     contentPadding: const EdgeInsets.symmetric(vertical: 13, horizontal: 14),
@@ -103,18 +95,12 @@ InputDecorationTheme _inputDecorationTheme(TextTheme textTheme, AppColorScheme c
   );
 }
 
-DialogTheme _dialogTheme(AppColorScheme colors) {
-  return DialogTheme(
-    backgroundColor: colors.surface,
-    elevation: 0,
-  );
+DialogThemeData _dialogThemeData(AppColorScheme colors) {
+  return DialogThemeData(backgroundColor: colors.surface, elevation: 0);
 }
 
-CardTheme _cardTheme(AppColorScheme colors) {
-  return CardTheme(
-    color: colors.surface,
-    elevation: 0,
-  );
+CardThemeData _cardThemeData(AppColorScheme colors) {
+  return CardThemeData(color: colors.surface, elevation: 0);
 }
 
 DividerThemeData _dividerTheme(AppColorScheme colors) {
@@ -127,14 +113,9 @@ DividerThemeData _dividerTheme(AppColorScheme colors) {
 }
 
 IconThemeData _iconTheme(AppColorScheme colors) {
-  return IconThemeData(
-    color: colors.primary,
-    size: Dimens.iconSize,
-  );
+  return IconThemeData(color: colors.primary, size: Dimens.iconSize);
 }
 
 TextSelectionThemeData _textSelectionTheme(AppColorScheme colors) {
-  return TextSelectionThemeData(
-    cursorColor: colors.cursor,
-  );
+  return TextSelectionThemeData(cursorColor: colors.cursor);
 }

@@ -31,13 +31,17 @@ class ArticlePage extends StatelessWidget {
     required SearchResult searchResult,
     required Article article,
   }) async {
-    final Color? color = await ImageColorRecognizer.getDominantColor(article.imageUrl);
+    final Color? color = await ImageColorRecognizer.getDominantColor(
+      article.imageUrl,
+    );
     if (context.mounted) {
-      await context.router.push(ArticleRoute(
-        searchResult: searchResult,
-        article: article,
-        accentColor: color,
-      ));
+      await context.router.push(
+        ArticleRoute(
+          searchResult: searchResult,
+          article: article,
+          accentColor: color,
+        ),
+      );
     }
   }
 
@@ -53,10 +57,7 @@ class ArticlePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: ArticleBody(
-          searchResult: searchResult,
-          article: article,
-        ),
+        child: ArticleBody(searchResult: searchResult, article: article),
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: accentColor,
@@ -79,25 +80,22 @@ class ArticleBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      Positioned.fill(
-        child: ListView(children: [
-          Hero(
-            tag: ArticlePage.buildImageTag(article.id),
-            child: Image.network(article.imageUrl, fit: BoxFit.cover),
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: ListView(
+            children: [
+              Hero(
+                tag: ArticlePage.buildImageTag(article.id),
+                child: Image.network(article.imageUrl, fit: BoxFit.cover),
+              ),
+              _Content(searchResult: searchResult, article: article),
+            ],
           ),
-          _Content(
-            searchResult: searchResult,
-            article: article,
-          ),
-        ]),
-      ),
-      const Positioned(
-        left: 12,
-        top: 12,
-        child: _BackButton(),
-      ),
-    ]);
+        ),
+        const Positioned(left: 12, top: 12, child: _BackButton()),
+      ],
+    );
   }
 }
 
@@ -105,10 +103,7 @@ class _Content extends StatelessWidget {
   final SearchResult searchResult;
   final Article article;
 
-  const _Content({
-    required this.searchResult,
-    required this.article,
-  });
+  const _Content({required this.searchResult, required this.article});
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +115,10 @@ class _Content extends StatelessWidget {
           Spacing.big,
           Hero(
             tag: ArticlePage.buildTitleTag(article.id),
-            child: Text(article.title, style: Theme.of(context).textTheme.headlineSmall),
+            child: Text(
+              article.title,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
           ),
           Spacing.big,
           ArticleMarkdown(

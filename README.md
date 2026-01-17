@@ -1,6 +1,6 @@
 # navigation
 
-A simple flutter application which demonstrates how to perform navigation in flutter as well as to render the .MD files. The clean archicture also has been put to work.
+A simple flutter application which demonstrates how to perform navigation in flutter as well as to render the .MD files. The clean architecture also has been put to work.
 
 # 1. Useful commands list
 

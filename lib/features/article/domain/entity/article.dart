@@ -4,7 +4,7 @@ part 'article.freezed.dart';
 part 'article.g.dart';
 
 @freezed
-class SearchResult with _$SearchResult {
+abstract class SearchResult with _$SearchResult {
   const SearchResult._();
 
   const factory SearchResult({
@@ -12,7 +12,8 @@ class SearchResult with _$SearchResult {
     required List<Article> items,
   }) = _SearchResult;
 
-  factory SearchResult.fromJson(Map<String, dynamic> json) => _$SearchResultFromJson(json);
+  factory SearchResult.fromJson(Map<String, dynamic> json) =>
+      _$SearchResultFromJson(json);
 
   Article getArticle(String id) {
     return items.firstWhere((e) => e.id == id);
@@ -20,18 +21,19 @@ class SearchResult with _$SearchResult {
 }
 
 @freezed
-class ArticleHeadline with _$ArticleHeadline {
+abstract class ArticleHeadline with _$ArticleHeadline {
   const factory ArticleHeadline({
     required String id,
     required String title,
     required String itemId,
   }) = _ArticleHeadline;
 
-  factory ArticleHeadline.fromJson(Map<String, dynamic> json) => _$ArticleHeadlineFromJson(json);
+  factory ArticleHeadline.fromJson(Map<String, dynamic> json) =>
+      _$ArticleHeadlineFromJson(json);
 }
 
 @freezed
-class Article with _$Article {
+abstract class Article with _$Article {
   const factory Article({
     required String id,
     required String title,
@@ -39,5 +41,6 @@ class Article with _$Article {
     required String body,
   }) = _Article;
 
-  factory Article.fromJson(Map<String, dynamic> json) => _$ArticleFromJson(json);
+  factory Article.fromJson(Map<String, dynamic> json) =>
+      _$ArticleFromJson(json);
 }

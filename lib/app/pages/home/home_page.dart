@@ -20,11 +20,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => inject<HomeBloc>(),
-      child: const Scaffold(
-        body: SafeArea(
-          child: HomeBody(),
-        ),
-      ),
+      child: const Scaffold(body: SafeArea(child: HomeBody())),
     );
   }
 }
@@ -48,7 +44,8 @@ class HomeBody extends StatelessWidget {
                 loading: () => const _Loading(),
                 noResults: () => const _NoResults(),
                 error: (error) => _Error(error: error),
-                content: (searchResult, headlines) => _Content(searchResult: searchResult, headlines: headlines),
+                content: (searchResult, headlines) =>
+                    _Content(searchResult: searchResult, headlines: headlines),
               ),
             );
           },
@@ -65,20 +62,22 @@ class _Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: Insets.small,
-      child: Row(children: [
-        Expanded(
-          child: Text(
-            LocaleKeys.page_home_title.tr(),
-            style: Theme.of(context).textTheme.headlineSmall,
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              LocaleKeys.page_home_title.tr(),
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
           ),
-        ),
-        Image.asset(
-          AppImages.icUserAvatar48,
-          width: 48,
-          height: 48,
-          color: Theme.of(context).colorScheme.primaryContainer,
-        ),
-      ]),
+          Image.asset(
+            AppImages.icUserAvatar48,
+            width: 48,
+            height: 48,
+            color: Theme.of(context).colorScheme.primaryContainer,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -166,10 +165,7 @@ class _Content extends StatelessWidget {
   final SearchResult searchResult;
   final List<HomeArticleHeadline> headlines;
 
-  const _Content({
-    required this.searchResult,
-    required this.headlines,
-  });
+  const _Content({required this.searchResult, required this.headlines});
 
   @override
   Widget build(BuildContext context) {
@@ -232,39 +228,43 @@ class _ArticleHeadlineWidget extends StatelessWidget {
         ),
         child: SizedBox(
           height: 100,
-          child: Stack(children: [
-            Positioned.fill(
-              child: Hero(
-                tag: ArticlePage.buildImageTag(headline.article.id),
-                child: Image.network(
-                  headline.article.imageUrl,
-                  fit: BoxFit.cover,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Hero(
+                  tag: ArticlePage.buildImageTag(headline.article.id),
+                  child: Image.network(
+                    headline.article.imageUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            Positioned(
-              top: 20,
-              left: 20,
-              right: 20,
-              child: Hero(
-                tag: ArticlePage.buildTitleTag(headline.article.id),
-                child: Text(
-                  headline.title,
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(color: foregroundColor),
+              Positioned(
+                top: 20,
+                left: 20,
+                right: 20,
+                child: Hero(
+                  tag: ArticlePage.buildTitleTag(headline.article.id),
+                  child: Text(
+                    headline.title,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleLarge!.copyWith(color: foregroundColor),
+                  ),
                 ),
               ),
-            ),
-            Positioned(
-              bottom: 12,
-              right: 12,
-              child: Image.asset(
-                AppImages.icChevronRight24,
-                width: 24,
-                height: 24,
-                color: foregroundColor,
+              Positioned(
+                bottom: 12,
+                right: 12,
+                child: Image.asset(
+                  AppImages.icChevronRight24,
+                  width: 24,
+                  height: 24,
+                  color: foregroundColor,
+                ),
               ),
-            ),
-          ]),
+            ],
+          ),
         ),
       ),
     );
